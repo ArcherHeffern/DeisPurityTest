@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+        
+    <head>
+        <!-- META -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+        <!-- Title -->
+        <title>Deis Purity Test</title>
+        
+        <style>
+            
+        html {
+            background-color: #FBEEC8;
+        }
+        
+        body {
+            text-align: center;
+        }
+        #list {
+            text-align: left;
+        }
+        h1 {
+            font-size: 300%;
+            font-weight: bold;
+            color: red;
+            padding:0px;
+            margin:0px;
+        }
+        
+        .button {
+            text-align: center;
+            border-radius: 20px;
+            background-color: rgba(102, 255, 220, 0.3);
+            color: rgb(0, 0, 5);
+        }
+        
+        </style>
+    </head>
+    
+    <body>
+        <p>
+            <h1>Deis Purity Test</h1>
+            <div id="toHide">
+                <p><i> The Brandeis version of the Rice Purity Test. Yes I used their source code I'm Lazy.</i></p>
+                <p><i>The Rice Purity Test has historically served as a segue from O-week to true college life at Rice.<br /> It's a voluntary opportunity for O-week groups to bond, and for students to track the maturation<br /> of their experiences throughout college.</i></p>
+                <p><strong>Caution: This is not a bucket list. Completion of all items on this test will likely result in death.</strong></p>
+                <br />
+                Click on every item you have done. 
+        </p>
+            <div id="list">
+                <ol>
+
+                    <!-- Insert all questions here! -->
+                    {{ questions }}
+
+                <input class="button" id="submit" type="submit" value="Calculate My Score!">
+                <input class="button" id="reset" type="submit" value="Clear checkboxes">
+            </div>
+        </div> <!-- id = toHide -->
+        <div id = "toShow">
+            <h2 id="test">Your score:</h2>
+            <h1 id="score"></h1>
+        </div> <!-- id = toShow -->
+        
+         <script>
+        
+        // Initially hides results
+        $("#toShow").hide();
+
+        // Pre-calcuate the individual send order
+        // On click of the submit button: 
+        $('#submit').click(function() {
+            // Calculates purity
+            var sinList = document.querySelectorAll('input[type="checkbox"]:checked');
+            var sins = sinList.length;
+            var purity = 100-sins;
+
+            let values = []
+            for (let i = 0; i < 100; i++) {
+                values[i] = document.getElementById((i+1).toString()).checked ? 1 : 0 
+            }
+            console.log(values)
+            
+            // Sends the score (It's not associated with you chillax)
+            fetch("/submit", {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, *same-origin, omit
+                headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(values), // body data type must match "Content-Type" header
+  });
+                
+            // Shows the score in the h1
+            $('#score').html(purity);
+            
+            // Shows the score and hides the checks
+            $("#toShow").show();
+            $("#toHide").hide();
+        });
+        
+        // On click of the reset button: 
+        $('#reset').click(function() {
+            $('input:checkbox').removeAttr('checked');
+        });
+        </script>
+
+    </body>
+</html>
+ 
