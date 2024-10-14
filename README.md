@@ -3,6 +3,8 @@ Brandeis Purity Test. Deployed + Advertised to Brandeis Campus for 1 month.
 
 Got 1040 Responses - Mean score was 72.448, standard deviation was 15.19 
 
+![Hisogram](https://github.com/archerheffern/deisPurityTest/blob/main/metrics/1040_histogram.png?raw=True)
+
 See metrics/ for more!
 
 # Usage
