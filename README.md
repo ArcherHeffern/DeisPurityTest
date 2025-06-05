@@ -7,14 +7,26 @@ Got 1040 Responses - Mean score was 72.448, standard deviation was 15.19
 
 See metrics/ for more!
 
-# Usage
+# questions.txt
+The questions file is stored in a private repo. Either:
+1. Ask me for the official questions.txt
+2. Create your own questions.txt
+
+## File format
 1. Create questions.txt file
 2. Put one question per line 
-3. Postfix a line to make it a section header
+3. Postfix a line with ":" to make it a section header
 4. You Must have 100 questions
 
-## Example
+__formal Syntax__
+```{verbatim}
+START := MAYBE_HEADER_AND_QUESTION{100}
+MAYBE_HEADER_AND_QUESTION := SECTION_HEADER? QUESTION
+SECTION_HEADER := \w+ ":\n"
+QUESTION := \w+ "\n"
 ```
+__Example__
+
 Brandeis:                       <- This begins a section
 Seen Ron Liebowitz              <- These are questions
 Gone in the Massel pond
