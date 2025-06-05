@@ -27,6 +27,7 @@ QUESTION := \w+ "\n"
 ```
 __Example__
 
+```{verbatim}
 Brandeis:                       <- This begins a section
 Seen Ron Liebowitz              <- These are questions
 Gone in the Massel pond
